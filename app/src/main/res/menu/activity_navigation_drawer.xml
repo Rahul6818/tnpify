@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_notification"
+            android:icon="@drawable/ic_notification"
+            android:title="Notification" />
+        <item
+            android:id="@+id/nav_apply"
+            android:icon="@drawable/ic_apply"
+            android:title="Apply for job/intern" />
+        <item
+            android:id="@+id/nav_resume"
+            android:icon="@drawable/ic_resume"
+            android:title="Resume" />
+        <item
+            android:id="@+id/nav_status"
+            android:icon="@drawable/ic_status"
+            android:title="Application Status" />
+    </group>
+
+    <item android:title="Search">
+        <menu>
+            <item
+                android:id="@+id/nav_company"
+                android:icon="@drawable/ic_company"
+                android:title="Companies" />
+            <item
+                android:id="@+id/nav_events"
+                android:icon="@drawable/ic_events"
+                android:title="Events" />
+        </menu>
+    </item>
+
+</menu>
