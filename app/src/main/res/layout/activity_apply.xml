@@ -10,7 +10,7 @@
     tools:context="tnpify.tnp_login.ApplyActivity">
 
     <Spinner
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/spinner_select_comp"
         android:layout_alignParentTop="true"
