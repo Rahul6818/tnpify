@@ -89,17 +89,19 @@ public class navigation extends AppCompatActivity
 
         if (id == R.id.nav_notification) {
             // Handle the camera action
-            Intent noti_intent = new Intent(navigation.this,notifications.class);
-            navigation.this.startActivity(noti_intent);
+            Intent notify_intent = new Intent(navigation.this,notifications.class);
+            navigation.this.startActivity(notify_intent);
         } else if (id == R.id.nav_apply) {
+            Intent apply_intent = new Intent(navigation.this,ApplyActivity.class);
+            navigation.this.startActivity(apply_intent);
         } else if (id == R.id.nav_resume) {
-            Intent cv_inent = new Intent(navigation.this,ViewResume.class);
-            navigation.this.startActivity(cv_inent);
+            Intent cv_intent = new Intent(navigation.this,ViewResume.class);
+            navigation.this.startActivity(cv_intent);
         } else if (id == R.id.nav_status) {
 
         } else if (id == R.id.nav_company) {
-            Intent test_inent = new Intent(navigation.this,CompanyList.class);
-            navigation.this.startActivity(test_inent);
+            Intent comp_list_intent = new Intent(navigation.this,CompanyList.class);
+            navigation.this.startActivity(comp_list_intent);
         } else if (id == R.id.nav_events) {
 
         }
