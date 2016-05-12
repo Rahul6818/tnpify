@@ -1,13 +1,9 @@
 package tnpify.tnp_login;
 
-import android.content.ClipData;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,10 +13,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 
 public class navigation extends AppCompatActivity
@@ -100,15 +92,14 @@ public class navigation extends AppCompatActivity
             Intent noti_intent = new Intent(navigation.this,notifications.class);
             navigation.this.startActivity(noti_intent);
         } else if (id == R.id.nav_apply) {
-            Intent test_inent = new Intent(navigation.this,testing.class);
-            navigation.this.startActivity(test_inent);
         } else if (id == R.id.nav_resume) {
-            Intent cv_inent = new Intent(navigation.this,resume.class);
+            Intent cv_inent = new Intent(navigation.this,ViewResume.class);
             navigation.this.startActivity(cv_inent);
         } else if (id == R.id.nav_status) {
 
         } else if (id == R.id.nav_company) {
-
+            Intent test_inent = new Intent(navigation.this,CompanyList.class);
+            navigation.this.startActivity(test_inent);
         } else if (id == R.id.nav_events) {
 
         }

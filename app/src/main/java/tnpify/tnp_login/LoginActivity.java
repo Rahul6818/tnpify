@@ -47,14 +47,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
-    public final static String EXTRA_MESSAGE = "com.tnpify.tnp_login.MESSAGE";
     /**
      * A dummy authentication store containing known user names and passwords.
      * TODO: remove after connecting to a real authentication system.
      */
     private static final String[] DUMMY_CREDENTIALS = new String[]{
             "foo@example.com:hello", "bar@example.com:world",
-            "patidarnet@gmail.com:12345"
+            "patidarnet@gmail.com:12345","1:1"
     };
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
@@ -203,12 +202,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
-        return email.contains("@");
+//        return email.contains("@");
+        return true;
     }
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        return password.length() > 4;
+//        return password.length() > 4;
+        return true;
     }
 
     /**
@@ -348,7 +349,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 Intent MyIntent = new Intent(LoginActivity.this, navigation.class);
                 EditText editText = (EditText) findViewById(R.id.email);
                 String message = editText.getText().toString();
-                MyIntent.putExtra(EXTRA_MESSAGE, message);
+                MyIntent.putExtra(getResources().getString(R.string.extra_message), message);
                 LoginActivity.this.startActivity(MyIntent);
                 overridePendingTransition(0,R.anim.abc_fade_out);
             } else {

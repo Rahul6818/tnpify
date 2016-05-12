@@ -1,40 +1,28 @@
 package tnpify.tnp_login;
 
 import android.annotation.TargetApi;
-import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.view.menu.MenuView;
-import android.text.Html;
-import android.text.method.LinkMovementMethod;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class testing extends AppCompatActivity {
+public class CompanyList extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_testing);
-//        TextView textView =(TextView)findViewById(R.id.test_text1);
-//        textView.setClickable(true);
-//        textView.setMovementMethod(LinkMovementMethod.getInstance());
-//        String link = "<a href='http://www.cse.iitd.ernet.in/~cs1120244/RAHUL_PATIDAR_CV.pdf'>Resume    </a>";
-//        textView.setText(Html.fromHtml(link));
+        setContentView(R.layout.activity_company_list);
         final ListView listView = (ListView)findViewById(R.id.listView);
-        String[] values = new String[] {"Analytics", "Core(Technical)", "Consulting","Finance", "Management"};
+        String[] values = new String[] {"Analytics", "Core(Technical)", "Consulting","Finance", "Management", "Another Company", "yet another company", "lo and behold", "one more company", "Company 1", "Company2", "Company3", "company 4", "company 5", "company 6", "company 7", "company 8", "company 9", "company 0"};
 
         final ArrayList<String> list = new ArrayList<String>();
         for (int i = 0; i < values.length; ++i) {
@@ -47,16 +35,21 @@ public class testing extends AppCompatActivity {
             @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onItemClick(AdapterView<?> parent, final View view,int position, long id) {
-                final String item = (String) parent.getItemAtPosition(position);
-
-                view.animate().setDuration(2000).alpha(0).withEndAction(new Runnable() {
-                     @Override
-                     public void run() {
-                         list.remove(item);
-                         adapter.notifyDataSetChanged();
-                         view.setAlpha(1);
-                     }
-                });
+//                final String item = (String) parent.getItemAtPosition(position);
+//
+//                view.animate().setDuration(2000).alpha(0).withEndAction(new Runnable() {
+//                     @Override
+//                     public void run() {
+//                         list.remove(item);
+//                         adapter.notifyDataSetChanged();
+//                         view.setAlpha(1);
+//                     }
+//                });
+                Intent MyIntent = new Intent(CompanyList.this, JNFActivity.class);
+                String message = (String) parent.getItemAtPosition(position);
+                MyIntent.putExtra(getResources().getString(R.string.extra_message), message);
+                CompanyList.this.startActivity(MyIntent);
+                overridePendingTransition(0,R.anim.abc_fade_out);
             }
         });
     }

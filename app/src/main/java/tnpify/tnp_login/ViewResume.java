@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class resume extends AppCompatActivity {
+public class ViewResume extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
