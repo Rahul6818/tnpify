@@ -24,9 +24,9 @@ public class CompanyList extends AppCompatActivity {
         final ListView listView = (ListView)findViewById(R.id.listView);
         String[] values = new String[] {"Analytics", "Core(Technical)", "Consulting","Finance", "Management", "Another Company", "yet another company", "lo and behold", "one more company", "Company 1", "Company2", "Company3", "company 4", "company 5", "company 6", "company 7", "company 8", "company 9", "company 0"};
 
-        final ArrayList<String> list = new ArrayList<String>();
-        for (int i = 0; i < values.length; ++i) {
-            list.add(values[i]);
+        final ArrayList<Company> list = new ArrayList<Company>();
+        for (int i = 0; i < 20; ++i) {
+            list.add(new Company(i, "company" + i, new String[] {"loc" + (2 * i), "loc" + (2 * i + 1)}));
         }
         final StableArrayAdapter adapter = new StableArrayAdapter(this,android.R.layout.simple_list_item_1, list);
         listView.setAdapter(adapter);
@@ -46,19 +46,19 @@ public class CompanyList extends AppCompatActivity {
 //                     }
 //                });
                 Intent MyIntent = new Intent(CompanyList.this, JNFActivity.class);
-                String message = (String) parent.getItemAtPosition(position);
-                MyIntent.putExtra(getResources().getString(R.string.extra_message), message);
+                int message = ((Company) parent.getItemAtPosition(position)).id;
+                MyIntent.putExtra(getResources().getString(R.string.company_id), message);
                 CompanyList.this.startActivity(MyIntent);
                 overridePendingTransition(0,R.anim.abc_fade_out);
             }
         });
     }
-    private class StableArrayAdapter extends ArrayAdapter<String> {
+    private class StableArrayAdapter extends ArrayAdapter<Company> {
 
-        HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
+        HashMap<Company, Integer> mIdMap = new HashMap<Company, Integer>();
 
         public StableArrayAdapter(Context context, int textViewResourceId,
-                                  List<String> objects) {
+                                  List<Company> objects) {
             super(context, textViewResourceId, objects);
             for (int i = 0; i < objects.size(); ++i) {
                 mIdMap.put(objects.get(i), i);
@@ -67,7 +67,7 @@ public class CompanyList extends AppCompatActivity {
 
         @Override
         public long getItemId(int position) {
-            String item = getItem(position);
+            Company item = getItem(position);
             return mIdMap.get(item);
         }
 

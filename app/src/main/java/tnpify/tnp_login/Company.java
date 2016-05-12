@@ -1,5 +1,6 @@
 package tnpify.tnp_login;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
@@ -14,4 +15,21 @@ public class Company {
         this.name = name;
         this.locations = locations;
     }
+    @Override
+    public String toString() {
+        return name;
+    }
+
+    public static Company getCompanyFromID(int ID) {
+        return new Company(ID, "company" + ID, new String[]{"loc" + 2*ID, "loc" + 2*ID+1});
+    }
+
+    public static ArrayList<Company> getCompaniesFromIDs(int[] IDs) {
+        ArrayList<Company> list = new ArrayList<Company>(IDs.length);
+        for(int i = 0; i < IDs.length; i++) {
+            list.add(getCompanyFromID(IDs[i]));
+        }
+        return list;
+    }
+
 }
