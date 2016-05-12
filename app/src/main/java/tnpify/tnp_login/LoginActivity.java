@@ -4,9 +4,12 @@ package tnpify.tnp_login;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -32,7 +35,9 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -321,9 +326,22 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // TODO: attempt authentication against a network service.
 
             try {
+//                ConnectivityManager check = (ConnectivityManager)
+//                        getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+//                NetworkInfo info = check.getActiveNetworkInfo();
+//                if(info == null) {
+//                    Toast.makeText(getApplicationContext(), "No Network Detected", Toast.LENGTH_SHORT).show();
+//                    return false;
+//                }
+//                if(!info.isConnected()) {
+//                    return false;
+//                }
+
+//                URL url = new URL("http://52.38.240.185/");
+
                 // Simulate network access.
                 Thread.sleep(2000);
-            } catch (InterruptedException e) {
+            } catch (Exception e) {
                 return false;
             }
 

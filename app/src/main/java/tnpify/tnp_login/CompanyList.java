@@ -45,10 +45,12 @@ public class CompanyList extends AppCompatActivity {
 //                         view.setAlpha(1);
 //                     }
 //                });
-                Intent MyIntent = new Intent(CompanyList.this, JNFActivity.class);
-                int message = ((Company) parent.getItemAtPosition(position)).id;
-                MyIntent.putExtra(getResources().getString(R.string.company_id), message);
-                CompanyList.this.startActivity(MyIntent);
+                Intent jnfIntent = new Intent(CompanyList.this, JNFActivity.class);
+                int compID = ((Company) parent.getItemAtPosition(position)).id;
+                String compName = ((Company) parent.getItemAtPosition(position)).name;
+                jnfIntent.putExtra(getResources().getString(R.string.company_id), compID);
+                jnfIntent.putExtra(getResources().getString(R.string.company_name), compName);
+                CompanyList.this.startActivity(jnfIntent);
                 overridePendingTransition(0,R.anim.abc_fade_out);
             }
         });

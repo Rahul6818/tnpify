@@ -9,23 +9,13 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".CompanyList">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/test_text1"
-        android:text="Apply/ Withdraw Application"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:textSize="@dimen/abc_text_size_subtitle_material_toolbar"/>
-
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/listView"
-        android:layout_below="@+id/test_text1"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="40dp"/>
+        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>
