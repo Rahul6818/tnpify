@@ -16,10 +16,11 @@
 
     <string name="title_activity_navigation">Tnpify</string>
     <string name="title_activity_login">Login</string>
-    <string name="title_activity_apply">Companies List</string>
+    <string name="title_activity_compList">Companies List</string>
     <string name="title_activity_notifications">Notifications</string>
     <string name="title_activity_resume">View Resume</string>
     <string name="title_activity_jnf">Job Notification Form</string>
+    <string name="title_activity_apply">Apply For Placement</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -118,6 +119,8 @@
     </string>
     <string name="extra_message">com.tnpify.tnp_login.MESSAGE</string>
     <string name="apply">Apply</string>
+    <string name="company_id">Company ID</string>
+    <string name="company_name">Company Name</string>
 
 
 </resources>

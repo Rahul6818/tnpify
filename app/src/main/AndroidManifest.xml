@@ -43,7 +43,7 @@
         </activity>
         <activity
             android:name=".CompanyList"
-            android:label="@string/title_activity_apply"
+            android:label="@string/title_activity_compList"
             android:parentActivityName=".navigation" />
         <activity
             android:name=".ViewResume"
@@ -52,7 +52,11 @@
         <activity
             android:name=".JNFActivity"
             android:label="@string/title_activity_jnf"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ApplyActivity"
+            android:label="@string/title_activity_apply" />
+
     </application>
 
 </manifest>

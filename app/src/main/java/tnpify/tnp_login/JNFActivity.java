@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -17,12 +19,14 @@ public class JNFActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_jnf);
         Intent callerIntent = getIntent();
-        final String compName = callerIntent.getStringExtra(getResources().getString(R.string.extra_message));
+        final int compID = callerIntent.getIntExtra(getResources().getString(R.string.company_id), -1);
+        final String compName = callerIntent.getStringExtra(getResources().getString(R.string.company_name));
+        setContentView(R.layout.activity_jnf);
+        CollapsingToolbarLayout collToolbar = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle(compName);
+//        getSupportActionBar().setTitle(compName);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
