@@ -29,13 +29,16 @@ public class JNFActivity extends AppCompatActivity {
         final int compID = callerIntent.getIntExtra(getResources().getString(R.string.company_id), -1);
         final String compName = callerIntent.getStringExtra(getResources().getString(R.string.company_name));
         Company company = Company.getCompanyFromID(compID);
-        String[] data = new String[] {company.name, Arrays.toString(company.locations)};
+        String[] data = new String[] {Arrays.toString(company.locations),
+        company.cgpa, company.ctc, company.deadline};
         ListView jnf = (ListView) findViewById(R.id.listViewJNF);
 //        ArrayList<String> jnfData = new ArrayList<String>();
 //        for(int i = 0; i < data.length; i++) {
 //            jnfData.add(data[i]);
 //        }
-        jnf.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, data));
+        ArrayAdapter<String> adap = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1);
+        adap.addAll(data);
+        jnf.setAdapter(adap);
 
         CollapsingToolbarLayout collToolbar = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

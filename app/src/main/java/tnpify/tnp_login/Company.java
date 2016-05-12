@@ -20,6 +20,12 @@ public class Company {
         this.id = id;
         this.name = name;
         this.locations = locations;
+        this.cgpa = Double.toString(Math.random() * 10);
+        this.ctc = Integer.toString((int)((Math.random() * 10 + 20) * 1000));
+        String date = Integer.toString((int) ((Math.random() * 30) + 1));
+        String[] months = new String[]{"July", "August", "September", "October", "November"};
+        String month = months[(int)(Math.random() * 4.9)];
+        this.deadline = date + " " + month;
     }
     @Override
     public String toString() {
