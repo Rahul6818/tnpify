@@ -14,19 +14,25 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+import java.util.List;
 
-public class navigation extends AppCompatActivity
+
+public class StatusActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-//        Typeface font = Typeface.createFromAsset(getAssets(),"fontawesome-webfont.ttf");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        DummyData.createDummyData(DummyData.KEY_COMPANIES);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -49,6 +55,8 @@ public class navigation extends AppCompatActivity
 
     }
 
+
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -58,6 +66,8 @@ public class navigation extends AppCompatActivity
             super.onBackPressed();
         }
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -89,21 +99,22 @@ public class navigation extends AppCompatActivity
 
         if (id == R.id.nav_notification) {
             // Handle the camera action
-            Intent notify_intent = new Intent(navigation.this,notifications.class);
-            navigation.this.startActivity(notify_intent);
+            Intent notify_intent = new Intent(StatusActivity.this,notifications.class);
+            StatusActivity.this.startActivity(notify_intent);
         } else if (id == R.id.nav_apply) {
-            Intent apply_intent = new Intent(navigation.this,ApplyActivity.class);
-            navigation.this.startActivity(apply_intent);
+            Intent apply_intent = new Intent(StatusActivity.this,ApplyActivity.class);
+            StatusActivity.this.startActivity(apply_intent);
         } else if (id == R.id.nav_resume) {
-            Intent cv_intent = new Intent(navigation.this,ViewResume.class);
-            navigation.this.startActivity(cv_intent);
+            Intent cv_intent = new Intent(StatusActivity.this,ViewResume.class);
+            StatusActivity.this.startActivity(cv_intent);
         } else if (id == R.id.nav_status) {
 
         } else if (id == R.id.nav_company) {
-            Intent comp_list_intent = new Intent(navigation.this,CompanyList.class);
-            navigation.this.startActivity(comp_list_intent);
+            Intent comp_list_intent = new Intent(StatusActivity.this,CompanyList.class);
+            StatusActivity.this.startActivity(comp_list_intent);
         } else if (id == R.id.nav_events) {
-
+            Intent event_intent = new Intent(StatusActivity.this, EventsActivity.class);
+            StatusActivity.this.startActivity(event_intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -1,14 +1,9 @@
 package tnpify.tnp_login;
 
-import android.app.ActionBar;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -16,11 +11,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class JNFActivity extends AppCompatActivity {
 
+    FloatingActionButton fab;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,9 +23,10 @@ public class JNFActivity extends AppCompatActivity {
         Intent callerIntent = getIntent();
         final int compID = callerIntent.getIntExtra(getResources().getString(R.string.company_id), -1);
         final String compName = callerIntent.getStringExtra(getResources().getString(R.string.company_name));
-        Company company = Company.getCompanyFromID(compID);
-        String[] data = new String[] {Arrays.toString(company.locations),
-        company.cgpa, company.ctc, company.deadline};
+        Company company = DummyData.getCompanyFromID(compID);
+        String locations = Arrays.toString(company.locations);
+        String[] data = new String[] {locations.substring(1, locations.length() - 1),
+        company.type.toString(), company.cgpa, company.ctc, company.deadline};
         ListView jnf = (ListView) findViewById(R.id.listViewJNF);
 //        ArrayList<String> jnfData = new ArrayList<String>();
 //        for(int i = 0; i < data.length; i++) {
@@ -46,7 +42,7 @@ public class JNFActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(compName);
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

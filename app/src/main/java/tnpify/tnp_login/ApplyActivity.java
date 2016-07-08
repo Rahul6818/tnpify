@@ -1,29 +1,26 @@
 package tnpify.tnp_login;
 
 import android.content.Intent;
-import android.database.DataSetObserver;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
 public class ApplyActivity extends AppCompatActivity {
+    Button applyButton, jnfButton;
+    Spinner selectCompany;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_apply);
-        final Spinner selectCompany = (Spinner) findViewById(R.id.spinner_select_comp);
-//        final Company selectedCompany = null;
-        Button applyButton = (Button) findViewById(R.id.button_apply);
-        Button jnfButton = (Button) findViewById(R.id.button_jnf);
-        final ArrayAdapter<Company> applyList = new ArrayAdapter<Company>(this, android.R.layout.simple_spinner_item, android.R.id.text1);
+        selectCompany = (Spinner) findViewById(R.id.spinner_select_comp);
+        applyButton = (Button) findViewById(R.id.button_apply);
+        jnfButton = (Button) findViewById(R.id.button_jnf);
+        final ArrayAdapter<Company> applyList = new SpinnerArrayAdapter<Company>(this, android.R.layout.simple_spinner_item, android.R.id.text1);
         refreshData(applyList);
         applyList.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         selectCompany.setAdapter(applyList);
@@ -31,7 +28,7 @@ public class ApplyActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Company selection = (Company) selectCompany.getSelectedItem();
-                if(selection == null) {
+                if(selection == null || selectCompany.getSelectedItemPosition() == 0) {
                     Toast.makeText(getApplicationContext(), "Please select a company first", Toast.LENGTH_SHORT).show();
                 } else {
 
@@ -47,7 +44,12 @@ public class ApplyActivity extends AppCompatActivity {
         applyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int compID = ((Company) selectCompany.getSelectedItem()).id;
+                Company selection = (Company) selectCompany.getSelectedItem();
+                if(selection == null || selectCompany.getSelectedItemPosition() == 0) {
+                    Toast.makeText(getApplicationContext(), "Please select a company first", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                int compID = selection.id;
                 boolean success = JNFActivity.applyToCompany(compID);
                 Toast.makeText(getApplicationContext(), "Application " + (success ? "successful" : "failed"), Toast.LENGTH_SHORT).show();
                 refreshData(applyList);
@@ -57,7 +59,8 @@ public class ApplyActivity extends AppCompatActivity {
 
     private void refreshData(ArrayAdapter<Company> applyList) {
         //TODO: refresh list
-        applyList.addAll(Company.getCompaniesFromIDs(new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18}));
+        applyList.add(new Company(-1, "Select a Company", null));
+        applyList.addAll(DummyData.getAllCompanies());
         applyList.notifyDataSetChanged();
     }
 }

@@ -117,10 +117,22 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
+    <string name="select_company_prompt">Select a Company</string>
     <string name="extra_message">com.tnpify.tnp_login.MESSAGE</string>
     <string name="apply">Apply</string>
     <string name="company_id">Company ID</string>
     <string name="company_name">Company Name</string>
+
+    <string name="sp_logged_in">Logged In</string>
+    <string name="sp_username">Username</string>
+    <string name="sp_password">Password</string>
+
+    <string name="name_filter_prompt">Company Name</string>
+    <string name="location_filter_prompt">Work Location</string>
+    <string name="ctc_filter_prompt">Minimum CTC</string>
+    <string name="cgpa_filter_prompt">Maximum CGPA Cutoff</string>
+    <string name="type_filter_prompt">Category</string>
+    <string name="filter_button">Filter</string>
 
 
 </resources>

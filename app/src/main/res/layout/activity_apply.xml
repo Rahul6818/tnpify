@@ -15,7 +15,9 @@
         android:id="@+id/spinner_select_comp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="95dp" />
+        android:layout_marginTop="95dp"
+        android:spinnerMode="dropdown"
+        android:prompt="@string/select_company_prompt"/>
 
     <Button
         style="?android:attr/buttonStyleSmall"

@@ -4,12 +4,10 @@ package tnpify.tnp_login;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -25,7 +23,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -35,9 +32,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,14 +47,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world",
-            "patidarnet@gmail.com:12345","1:1", "2012cs10259:tushar123", "2012cs10244:rahul123", "2012cs10238:nikhil123", "2012cs10228:kaushal123"
-    };
+
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -78,6 +66,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        DummyData.createDummyData(DummyData.KEY_LOGIN);
+        SharedPreferences sp = getPreferences(MODE_PRIVATE);
+        boolean loggedIn = sp.getBoolean(getString(R.string.sp_logged_in), false);
+        if(loggedIn) {
+            finish();
+            Intent MyIntent = new Intent(LoginActivity.this, StatusActivity.class);
+            LoginActivity.this.startActivity(MyIntent);
+            overridePendingTransition(0,R.anim.abc_fade_out);
+        }
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
@@ -108,6 +105,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
     }
+
+
 
     private void populateAutoComplete() {
         if (!mayRequestContacts()) {
@@ -344,30 +343,36 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             } catch (Exception e) {
                 return false;
             }
+            SharedPreferences sp = getPreferences(MODE_PRIVATE);
+            SharedPreferences.Editor spedit = sp.edit();
 
-            for (String credential : DUMMY_CREDENTIALS) {
+            for (String credential : DummyData.DUMMY_CREDENTIALS) {
                 String[] pieces = credential.split(":");
                 if (pieces[0].equals(mEmail)) {
                     // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
+
+                    if(pieces[1].equals(mPassword)) {
+                        spedit.putBoolean(getString(R.string.sp_logged_in), true);
+                        spedit.putString(getString(R.string.sp_username), mEmail);
+                        spedit.commit();
+                        return true;
+                    }
                 }
             }
+            spedit.putBoolean(getString(R.string.sp_logged_in), false);
+            spedit.commit();
 
-            // TODO: register the new account here.
             return false;//true;
         }
 
         @Override
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
-            showProgress(false);
+//            showProgress(false);
 
             if (success) {
                 finish();
-                Intent MyIntent = new Intent(LoginActivity.this, navigation.class);
-                EditText editText = (EditText) findViewById(R.id.email);
-                String message = editText.getText().toString();
-                MyIntent.putExtra(getResources().getString(R.string.extra_message), message);
+                Intent MyIntent = new Intent(LoginActivity.this, StatusActivity.class);
                 LoginActivity.this.startActivity(MyIntent);
                 overridePendingTransition(0,R.anim.abc_fade_out);
             } else {

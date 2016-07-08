@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,18 +18,24 @@ import java.util.List;
 
 public class CompanyList extends AppCompatActivity {
 
+    public static final String FILTERS_EXTRA = "Filters";
+    static final int FILTERS_REQUEST = 1;
+    List<Company> list = DummyData.getAllCompanies();
+    ListView listView;
+    FloatingActionButton fabFilter;
+    StableArrayAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_company_list);
-        final ListView listView = (ListView)findViewById(R.id.listView);
-        String[] values = new String[] {"Analytics", "Core(Technical)", "Consulting","Finance", "Management", "Another Company", "yet another company", "lo and behold", "one more company", "Company 1", "Company2", "Company3", "company 4", "company 5", "company 6", "company 7", "company 8", "company 9", "company 0"};
 
-        final ArrayList<Company> list = new ArrayList<Company>();
-        for (int i = 0; i < 20; ++i) {
-            list.add(new Company(i, "company" + i, new String[] {"loc" + (2 * i), "loc" + (2 * i + 1)}));
-        }
-        final StableArrayAdapter adapter = new StableArrayAdapter(this,android.R.layout.simple_list_item_1, list);
+        listView = (ListView)findViewById(R.id.listView);
+//        String[] values = new String[] {"Analytics", "Core(Technical)", "Consulting","Finance", "Management", "Another Company", "yet another company", "lo and behold", "one more company", "Company 1", "Company2", "Company3", "company 4", "company 5", "company 6", "company 7", "company 8", "company 9", "company 0"};
+
+
+
+
+        adapter = new StableArrayAdapter(this,android.R.layout.simple_list_item_1, list);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -51,13 +58,39 @@ public class CompanyList extends AppCompatActivity {
                 jnfIntent.putExtra(getResources().getString(R.string.company_id), compID);
                 jnfIntent.putExtra(getResources().getString(R.string.company_name), compName);
                 CompanyList.this.startActivity(jnfIntent);
-                overridePendingTransition(0,R.anim.abc_fade_out);
+            }
+        });
+
+        fabFilter = (FloatingActionButton) findViewById(R.id.fab_filter);
+        fabFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent filterIntent = new Intent(CompanyList.this, FiltersActivity.class);
+                CompanyList.this.startActivityForResult(filterIntent, FILTERS_REQUEST);
             }
         });
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == FILTERS_REQUEST && resultCode == RESULT_OK) {
+            ArrayList<String> filters = data.getStringArrayListExtra(FILTERS_EXTRA);
+            list = Company.filtered(this, DummyData.getAllCompanies(), filters);
+            refreshListView();
+        }
+    }
+    void refreshListView() {
+        adapter.notifyDataSetInvalidated();
+        adapter = new StableArrayAdapter(this,android.R.layout.simple_list_item_1, list);
+        listView.setAdapter(adapter);
+    }
+
+
+
     private class StableArrayAdapter extends ArrayAdapter<Company> {
 
-        HashMap<Company, Integer> mIdMap = new HashMap<Company, Integer>();
+        HashMap<Company, Integer> mIdMap = new HashMap<>();
 
         public StableArrayAdapter(Context context, int textViewResourceId,
                                   List<Company> objects) {
@@ -80,5 +113,4 @@ public class CompanyList extends AppCompatActivity {
 
     }
 
-    Intent intent = getIntent();
 }
