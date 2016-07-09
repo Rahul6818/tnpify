@@ -4,10 +4,12 @@ package tnpify.tnp_login;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -67,9 +69,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         DummyData.createDummyData(DummyData.KEY_LOGIN);
-        SharedPreferences sp = getPreferences(MODE_PRIVATE);
-        boolean loggedIn = sp.getBoolean(getString(R.string.sp_logged_in), false);
-        if(loggedIn) {
+
+        if(getUsername(this) != null) {
             finish();
             Intent MyIntent = new Intent(LoginActivity.this, StatusActivity.class);
             LoginActivity.this.startActivity(MyIntent);
@@ -104,6 +105,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+    }
+
+    public static String getUsername(Context context) {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+        boolean loggedIn = sp.getBoolean(context.getString(R.string.sp_logged_in), false);
+        if(loggedIn)
+            return sp.getString(context.getString(R.string.sp_username), null);
+        return null;
     }
 
 
@@ -343,7 +352,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             } catch (Exception e) {
                 return false;
             }
-            SharedPreferences sp = getPreferences(MODE_PRIVATE);
+            SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
             SharedPreferences.Editor spedit = sp.edit();
 
             for (String credential : DummyData.DUMMY_CREDENTIALS) {

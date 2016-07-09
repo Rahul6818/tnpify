@@ -26,7 +26,7 @@ public class JNFActivity extends AppCompatActivity {
         Company company = DummyData.getCompanyFromID(compID);
         String locations = Arrays.toString(company.locations);
         String[] data = new String[] {locations.substring(1, locations.length() - 1),
-        company.type.toString(), company.cgpa, company.ctc, company.deadline};
+        company.type.toString(), Float.toString(company.cgpa), Integer.toString(company.ctc), company.deadline.toString()};
         ListView jnf = (ListView) findViewById(R.id.listViewJNF);
 //        ArrayList<String> jnfData = new ArrayList<String>();
 //        for(int i = 0; i < data.length; i++) {

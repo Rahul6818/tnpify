@@ -133,6 +133,11 @@
     <string name="cgpa_filter_prompt">Maximum CGPA Cutoff</string>
     <string name="type_filter_prompt">Category</string>
     <string name="filter_button">Filter</string>
+    <string name="action_sort">Sort</string>
+    <string name="name_sort">Name</string>
+    <string name="ctc_sort">CTC</string>
+    <string name="cgpa_sort">CGPA Cutoff</string>
+    <string name="deadline_sort">Application Deadline</string>
 
 
 </resources>

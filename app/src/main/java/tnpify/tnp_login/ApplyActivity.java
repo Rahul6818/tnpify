@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.Random;
+
 public class ApplyActivity extends AppCompatActivity {
     Button applyButton, jnfButton;
     Spinner selectCompany;
@@ -59,7 +61,7 @@ public class ApplyActivity extends AppCompatActivity {
 
     private void refreshData(ArrayAdapter<Company> applyList) {
         //TODO: refresh list
-        applyList.add(new Company(-1, "Select a Company", null));
+        applyList.add(new Company(-1, "Select a Company", null, null));
         applyList.addAll(DummyData.getAllCompanies());
         applyList.notifyDataSetChanged();
     }
