@@ -34,29 +34,66 @@ public class Company implements Comparable<Company>{
     public static final int CTC_SORT = 1;
     public static final int CGPA_SORT = 2;
     public static final int DEADLINE_SORT = 3;
+    static final long ONE_MONTH_TIME = 2419200000L;
     public int id;
     public String name;
     public CompanyType type;
     public String[] locations;
+    public String applied = null;
     public int ctc; //Cost to company
     public float cgpa; //minimum CGPA
     public Date deadline; //Application deadline.
+
+
     public Company(int id, String name, String[] locations, Random r) {
         this.id = id;
         this.name = name;
         this.locations = locations;
+        applied = null;
         if(r != null) {
             type = CompanyType.values()[r.nextInt(CompanyType.values().length)];
             cgpa = (float) (r.nextInt(100) / 10.0);
             ctc = (r.nextInt(11) + 20) * 1000;
             deadline = new Date();
-            deadline.setTime(r.nextLong());
+            deadline.setTime(Math.abs(r.nextLong()));
+            if(deadline.getMonth() < 6) {
+                deadline.setMonth(deadline.getMonth() + 6);
+            }
             deadline.setYear(116); // Sets year since 1900
         }
     }
+
     @Override
     public String toString() {
         return name;
+    }
+
+    public boolean isOpen(String username) {
+        long today = System.currentTimeMillis();
+        long lastTime = deadline.getTime();
+        return today <= lastTime && (today + ONE_MONTH_TIME) > lastTime && username != null && username.length() != 0 && !username.equalsIgnoreCase(applied);
+    }
+
+    public boolean apply(String username) {
+        if(isOpen(username)) {
+            applied = username;
+            return true;
+        }
+        return false;
+    }
+
+    public boolean canWithdraw(String username) {
+        long today = System.currentTimeMillis();
+        long lastTime = deadline.getTime();
+        return today <= lastTime && username != null && username.equalsIgnoreCase(applied);
+    }
+
+    public boolean withdraw(String username) {
+        if(canWithdraw(username)) {
+            applied = null;
+            return true;
+        }
+        return false;
     }
 
     public static List<Company> filterType(List<Company> companies, String type) {
@@ -148,6 +185,26 @@ public class Company implements Comparable<Company>{
         return ret;
     }
 
+    public static List<Company> filterOpen(List<Company> companies, String username) {
+        if(username == null || username.length() == 0) {
+            return new ArrayList<Company>();
+        }
+        if(username.equalsIgnoreCase("All")) {
+            return companies;
+        }
+        List<Company> ret = new ArrayList<Company>();
+        for(Company company : companies) {
+            if(company.isOpen(username)) {
+                ret.add(company);
+            }
+        }
+        return ret;
+    }
+
+    public static List<Company> filtered(List<Company> companies, List<String> filters) {
+        return filtered(companies, filters, NAME_SORT, true);
+    }
+
     public static List<Company> filtered(List<Company> companies, List<String> filters, int sortBy, boolean ascendingSort) {
         List<Company> ret = companies;
         if(filters != null) {
@@ -162,6 +219,8 @@ public class Company implements Comparable<Company>{
                     ret = filterCGPA(ret, filter.substring(4));
                 } else if (filter.startsWith("Type")) {
                     ret = filterType(ret, filter.substring(4));
+                } else if (filter.startsWith("Open")) {
+                    ret = filterOpen(ret, filter.substring(4));
                 }
             }
         }
@@ -286,7 +345,7 @@ class DeadlineCompare implements Comparator<Company> {
      */
     @Override
     public int compare(Company company1, Company company2) {
-        return (company1.deadline).compareTo(company2.deadline);
+        return ((Long) company1.deadline.getTime()).compareTo((Long) company2.deadline.getTime());
     }
 }
 

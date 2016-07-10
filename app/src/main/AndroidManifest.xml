@@ -24,49 +24,50 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".StatusActivity"
+        <activity android:name=".NavigationActivity"
             android:label="@string/title_activity_navigation"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name=".notifications"
+            android:label="@string/title_activity_notifications"
             android:parentActivityName=".LoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="tnpify.tnp_login.LoginActivity" />
+                android:value=".LoginActivity" />
         </activity>
-        <activity
-            android:name=".notifications"
-            android:label="@string/title_activity_notifications"
-            android:parentActivityName=".StatusActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".StatusActivity" />
-        </activity>
-        <activity
-            android:name=".CompanyList"
+        <activity android:name=".CompanyList"
             android:label="@string/title_activity_compList"
-            android:parentActivityName=".StatusActivity" />
-        <activity
-            android:name=".ViewResume"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".LoginActivity" />
+        <activity android:name=".ViewResume"
             android:label="@string/title_activity_resume"
-            android:parentActivityName=".StatusActivity" />
-        <activity
-            android:name=".JNFActivity"
+            android:parentActivityName=".LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".JNFActivity"
             android:label="@string/title_activity_jnf"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ApplyActivity"
+        <activity android:name=".ApplyActivity"
             android:label="@string/title_activity_apply"
-            android:parentActivityName=".StatusActivity" />
+            android:parentActivityName=".LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".SelectResume" />
         <activity android:name=".EventsActivity"
             android:label="Events"
-            android:parentActivityName=".StatusActivity"/>
+            android:parentActivityName=".LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".EventDateActivity"
-            android:parentActivityName=".EventsActivity"/>
+            android:parentActivityName=".EventsActivity" />
         <activity android:name=".FiltersActivity"
             android:label="Filter"
-            android:parentActivityName=".CompanyList"/>
+            android:parentActivityName=".CompanyList" />
+        <activity android:name=".StatusActivity"
+            android:parentActivityName=".LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="tnpify.tnp_login.LoginActivity" />
+        </activity>
     </application>
 
 </manifest>

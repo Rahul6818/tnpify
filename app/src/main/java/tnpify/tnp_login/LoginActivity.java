@@ -69,8 +69,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         DummyData.createDummyData(DummyData.KEY_LOGIN);
-
-        if(getUsername(this) != null) {
+        DummyData.createDummyData(DummyData.KEY_COMPANIES);
+        DummyData.createDummyData(DummyData.KEY_APPLICATIONS);
+        String mUserName = getUsername(getApplicationContext());
+        if(mUserName != null) {
+            DummyData.loggedIn(mUserName);
             finish();
             Intent MyIntent = new Intent(LoginActivity.this, StatusActivity.class);
             LoginActivity.this.startActivity(MyIntent);
@@ -355,19 +358,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
             SharedPreferences.Editor spedit = sp.edit();
 
-            for (String credential : DummyData.DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-
-                    if(pieces[1].equals(mPassword)) {
-                        spedit.putBoolean(getString(R.string.sp_logged_in), true);
-                        spedit.putString(getString(R.string.sp_username), mEmail);
-                        spedit.commit();
-                        return true;
-                    }
-                }
+            if(DummyData.logIn(mEmail, mPassword)) {
+                spedit.putBoolean(getString(R.string.sp_logged_in), true);
+                spedit.putString(getString(R.string.sp_username), mEmail);
+                spedit.commit();
+                return true;
             }
+
             spedit.putBoolean(getString(R.string.sp_logged_in), false);
             spedit.commit();
 

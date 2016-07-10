@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_notification"
-            android:icon="@drawable/ic_notification"
-            android:title="Notification" />
-        <item
-            android:id="@+id/nav_apply"
-            android:icon="@drawable/ic_apply"
-            android:title="Apply for job/intern" />
-        <item
-            android:id="@+id/nav_resume"
-            android:icon="@drawable/ic_resume"
-            android:title="Resume" />
-        <item
-            android:id="@+id/nav_status"
-            android:icon="@drawable/ic_status"
-            android:title="Application Status" />
-    </group>
+    <item android:title="@string/menu_apply">
+        <menu>
+            <item
+                android:id="@+id/nav_notification"
+                android:icon="@drawable/ic_notification"
+                android:title="Notification" />
+            <item
+                android:id="@+id/nav_apply"
+                android:icon="@drawable/ic_apply"
+                android:title="Apply for job/intern" />
+            <item
+                android:id="@+id/nav_resume"
+                android:icon="@drawable/ic_resume"
+                android:title="Resume" />
+            <item
+                android:id="@+id/nav_status"
+                android:icon="@drawable/ic_status"
+                android:title="Application Status" />
+            </menu>
+    </item>
 
-    <item android:title="Search">
+    <item android:title="@string/menu_search">
         <menu>
             <item
                 android:id="@+id/nav_company"
@@ -30,6 +32,14 @@
                 android:id="@+id/nav_events"
                 android:icon="@drawable/ic_events"
                 android:title="Events" />
+        </menu>
+    </item>
+    <item android:title="@string/menu_account" >
+        <menu>
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/ic_logout"
+                android:title="@string/action_logout" />
         </menu>
     </item>
 

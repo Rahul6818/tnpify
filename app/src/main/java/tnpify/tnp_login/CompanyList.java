@@ -1,30 +1,25 @@
 package tnpify.tnp_login;
 
 import android.annotation.TargetApi;
-import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CompanyList extends AppCompatActivity {
+public class CompanyList extends NavigationActivity {
 
     public static final String FILTERS_EXTRA = "filters";
     private static final String SORT_BY = "sort_by";
@@ -97,38 +92,26 @@ public class CompanyList extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.company_list_menu, menu);
 
-        MenuItem nameItem = menu.findItem(R.id.name_sort_action);
-        nameItem.setIcon(R.drawable.ic_status);
-
-        MenuItem ctcItem = menu.findItem(R.id.ctc_sort_action);
-        ctcItem.setIcon(R.drawable.ic_status);
-
-        MenuItem cgpaItem = menu.findItem(R.id.cgpa_sort_action);
-        cgpaItem.setIcon(R.drawable.ic_status);
-
-        MenuItem deadlineItem = menu.findItem(R.id.deadline_sort_action);
-        deadlineItem.setIcon(R.drawable.ic_status);
-
         int arrowRes = ascendingSort ? R.drawable.ic_arrow_up : R.drawable.ic_arrow_down;
 
         switch(sortBy) {
             case Company.CGPA_SORT:
+                MenuItem cgpaItem = menu.findItem(R.id.cgpa_sort_action);
                 cgpaItem.setIcon(arrowRes);
                 lastSort = cgpaItem;
                 break;
             case Company.CTC_SORT:
+                MenuItem ctcItem = menu.findItem(R.id.ctc_sort_action);
                 ctcItem.setIcon(arrowRes);
                 lastSort = ctcItem;
                 break;
             case Company.DEADLINE_SORT:
+                MenuItem deadlineItem = menu.findItem(R.id.deadline_sort_action);
                 deadlineItem.setIcon(arrowRes);
                 lastSort = deadlineItem;
                 break;
-            case Company.NAME_SORT:
-                nameItem.setIcon(arrowRes);
-                lastSort = nameItem;
-                break;
             default:
+                MenuItem nameItem = menu.findItem(R.id.name_sort_action);
                 nameItem.setIcon(arrowRes);
                 lastSort = nameItem;
                 break;
@@ -136,7 +119,6 @@ public class CompanyList extends AppCompatActivity {
 
         return true;
     }
-
 
     void sortMenu(MenuItem item) {
         int sortField = Company.NAME_SORT;
@@ -154,7 +136,7 @@ public class CompanyList extends AppCompatActivity {
                 sortField = Company.NAME_SORT;
                 break;
         }
-        lastSort.setIcon(R.drawable.ic_status);
+        lastSort.setIcon(0);
         SharedPreferences.Editor spedit = sp.edit();
         if(sortField == sortBy) {
             spedit.putBoolean(ASCENDING_SORT, !ascendingSort);

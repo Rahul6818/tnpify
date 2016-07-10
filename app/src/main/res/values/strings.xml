@@ -138,6 +138,12 @@
     <string name="ctc_sort">CTC</string>
     <string name="cgpa_sort">CGPA Cutoff</string>
     <string name="deadline_sort">Application Deadline</string>
+    <string name="action_logout">Logout</string>
+    <string name="menu_search">Search</string>
+    <string name="menu_account">Account</string>
+    <string name="menu_apply">Apply</string>
+    <string name="apply_button_text">Apply</string>
+    <string name="application_withdraw">Withdraw</string>
 
 
 </resources>

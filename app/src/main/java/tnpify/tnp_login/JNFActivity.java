@@ -1,5 +1,6 @@
 package tnpify.tnp_login;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -16,6 +17,8 @@ import java.util.Arrays;
 public class JNFActivity extends AppCompatActivity {
 
     FloatingActionButton fab;
+    Company company;
+    String username;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,15 +26,11 @@ public class JNFActivity extends AppCompatActivity {
         Intent callerIntent = getIntent();
         final int compID = callerIntent.getIntExtra(getResources().getString(R.string.company_id), -1);
         final String compName = callerIntent.getStringExtra(getResources().getString(R.string.company_name));
-        Company company = DummyData.getCompanyFromID(compID);
+        company = DummyData.getCompanyFromID(compID);
         String locations = Arrays.toString(company.locations);
         String[] data = new String[] {locations.substring(1, locations.length() - 1),
         company.type.toString(), Float.toString(company.cgpa), Integer.toString(company.ctc), company.deadline.toString()};
         ListView jnf = (ListView) findViewById(R.id.listViewJNF);
-//        ArrayList<String> jnfData = new ArrayList<String>();
-//        for(int i = 0; i < data.length; i++) {
-//            jnfData.add(data[i]);
-//        }
         ArrayAdapter<String> adap = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1);
         adap.addAll(data);
         jnf.setAdapter(adap);
@@ -40,42 +39,56 @@ public class JNFActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(compName);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                boolean success = applyToCompany(compID);
-                Toast.makeText(getApplicationContext(), "Application " + (success ? "successful" : "failed"),
-                        Toast.LENGTH_SHORT).show();
-//                AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
-//                builder.setTitle("Apply to " + compName)
-////                        .setSingleChoiceItems(R.array.resumes, 0, new DialogInterface.OnClickListener() {
-////                            @Override
-////                            public void onClick(DialogInterface dialog, int which) {
-////                                // TODO: set resume here
-////                            }
-////                        })
-//                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//
-//                            }
-//                        })
-//                        .setPositiveButton(R.string.apply, new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int whichButton) {
-//                                boolean success = applyToCompany(compID);
-//                                Toast.makeText(getApplicationContext(), "Application " + (success ? "successful" : "failed"),
-//                                        Toast.LENGTH_SHORT).show();
-//                            }
-//                        }).show();
-            }
-        });
+
+        fab = (FloatingActionButton) findViewById(R.id.fab_jnf);
+        username = LoginActivity.getUsername(getApplicationContext());
+        refreshFabView();
     }
 
-    public static boolean applyToCompany(int compID) {
-        return false;
+    public void fabClick(View view) {
+        if(company.isOpen(username)) {
+            applyToCompany(this, company.id);
+        } else {
+            withdawFromCompany(company);
+        }
+        refreshFabView();
+    }
+
+    private void withdawFromCompany(Company company) {
+        boolean success = DummyData.withdraw(company);
+        Toast.makeText(this, "Withdraw operation " + (success ? "successful" : "failed"), Toast.LENGTH_SHORT).show();
+        refreshFabView();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        refreshFabView();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Toast.makeText(getApplicationContext(), "Application " + (resultCode == RESULT_OK ? "successful" : "failed"), Toast.LENGTH_SHORT).show();
+        refreshFabView();
+    }
+
+    void refreshFabView() {
+        if(company.isOpen(username)) {
+            fab.setVisibility(View.VISIBLE);
+            fab.setImageResource(R.drawable.ic_tick);
+        } else if(company.canWithdraw(username)) {
+            fab.setVisibility(View.VISIBLE);
+            fab.setImageResource(R.drawable.ic_cross);
+        } else {
+            fab.setVisibility(View.GONE);
+        }
+    }
+
+    public static void applyToCompany(Activity context, int compID) {
+        Intent intent = new Intent(context, SelectResume.class);
+        intent.putExtra(SelectResume.SELECT_RESUME_FOR_COMPANY, compID);
+        context.startActivityForResult(intent, SelectResume.RESULT_REQUEST_CODE);
     }
 }

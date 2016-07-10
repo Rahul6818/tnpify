@@ -9,11 +9,13 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.List;
 import java.util.Random;
 
-public class ApplyActivity extends AppCompatActivity {
+public class ApplyActivity extends NavigationActivity {
     Button applyButton, jnfButton;
     Spinner selectCompany;
+    ArrayAdapter<Company> applyList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,10 +24,7 @@ public class ApplyActivity extends AppCompatActivity {
         selectCompany = (Spinner) findViewById(R.id.spinner_select_comp);
         applyButton = (Button) findViewById(R.id.button_apply);
         jnfButton = (Button) findViewById(R.id.button_jnf);
-        final ArrayAdapter<Company> applyList = new SpinnerArrayAdapter<Company>(this, android.R.layout.simple_spinner_item, android.R.id.text1);
         refreshData(applyList);
-        applyList.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        selectCompany.setAdapter(applyList);
         jnfButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,17 +51,32 @@ public class ApplyActivity extends AppCompatActivity {
                     return;
                 }
                 int compID = selection.id;
-                boolean success = JNFActivity.applyToCompany(compID);
-                Toast.makeText(getApplicationContext(), "Application " + (success ? "successful" : "failed"), Toast.LENGTH_SHORT).show();
-                refreshData(applyList);
+                JNFActivity.applyToCompany(ApplyActivity.this, compID);
             }
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Toast.makeText(getApplicationContext(), "Application " + (resultCode == RESULT_OK ? "successful" : "failed"), Toast.LENGTH_SHORT).show();
+        refreshData(applyList);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        refreshData(applyList);
+    }
+
     private void refreshData(ArrayAdapter<Company> applyList) {
-        //TODO: refresh list
-        applyList.add(new Company(-1, "Select a Company", null, null));
-        applyList.addAll(DummyData.getAllCompanies());
-        applyList.notifyDataSetChanged();
+        if(applyList != null) {
+            applyList.notifyDataSetInvalidated();
+        }
+        List<Company> appliedList = DummyData.openCompanies();
+        appliedList.add(0, new Company(-1, "Select a Company", null, null));
+        applyList = new SpinnerArrayAdapter<Company>(this, android.R.layout.simple_spinner_item, android.R.id.text1, appliedList);
+        applyList.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        selectCompany.setAdapter(applyList);
     }
 }

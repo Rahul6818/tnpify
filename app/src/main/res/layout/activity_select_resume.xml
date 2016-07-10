@@ -14,17 +14,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Select Resume"
-        android:id="@+id/textView2"
+        android:text="Company Name"
+        android:id="@+id/textView"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="58dp" />
+        android:layout_centerHorizontal="true" />
 
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/spinner_resume"
-        android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="68dp" />
+        android:layout_centerVertical="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/apply_button_text"
+        android:id="@+id/button"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/spinner_resume"
+        android:onClick="applyToComp" />
+
+
+
 </RelativeLayout>

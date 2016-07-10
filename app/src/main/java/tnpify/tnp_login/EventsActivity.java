@@ -8,7 +8,7 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 
-public class EventsActivity extends AppCompatActivity {
+public class EventsActivity extends NavigationActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +21,6 @@ public class EventsActivity extends AppCompatActivity {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
                 month = month + 1;
-//                Toast.makeText(getApplicationContext(), dayOfMonth + "/" + (month + 1) + "/" + year, Toast.LENGTH_SHORT).show();
                 String dateExtra = year + "-" + (month < 10 ? "0" : "") + month + "-" + (dayOfMonth < 10 ? "0" : "") + dayOfMonth;
                 Intent dateEvents = new Intent(EventsActivity.this, EventDateActivity.class);
                 dateEvents.putExtra("date", dateExtra);

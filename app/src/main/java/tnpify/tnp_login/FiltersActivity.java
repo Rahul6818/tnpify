@@ -66,8 +66,7 @@ public class FiltersActivity extends AppCompatActivity {
             spedit.putString(TYPE_FILTER, type);
         }
         spedit.commit();
-        Intent filterIntent = new Intent();
-        setResult(RESULT_OK, filterIntent);
+        setResult(RESULT_OK);
         finish();
     }
 }
