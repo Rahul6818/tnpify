@@ -2,6 +2,7 @@ package tnpify.tnp_login;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -20,9 +21,11 @@ public class DummyData {
     private static Random creator = new Random();
     private static final boolean[] dummyDataCreated = new boolean[3];
     private static String username = null;
-    static final List<Company> origList = new ArrayList<Company>();
-    static final List<Company> appliedCompanies = new ArrayList<Company>();
-    static final List<Application> applications = new ArrayList<Application>();
+    private static final List<Company> origList = new ArrayList<Company>();
+    private static final List<Company> appliedCompanies = new ArrayList<Company>();
+    private static final List<Application> applications = new ArrayList<Application>();
+    private static final List<TnpEvent> events = new ArrayList<TnpEvent>();
+
     public static Company getCompanyFromID(int id) {
         for(Company c : getAllCompanies()) {
             if(c.id == id)
@@ -57,8 +60,16 @@ public class DummyData {
                 }));
                 break;
             case KEY_COMPANIES:
+                Company c;
                 for (int i = 0; i < 99; ++i) {
-                    origList.add(new Company(i, (i < 10 ? "company0" : "company") + i, new String[]{"loc" + (2 * i), "loc" + (2 * i + 1)}, creator));
+                    c = new Company(i, (i < 10 ? "company0" : "company") + i, new String[]{"loc" + (2 * i), "loc" + (2 * i + 1)}, creator);
+                    origList.add(c);
+                    events.add(new TnpEvent(c.id, c.pptDate, TnpEvent.EventType.PPT, creator));
+                    events.add(new TnpEvent(c.id, c.testDate, TnpEvent.EventType.Test, creator));
+                    if(c.gdDate != null) {
+                        events.add(new TnpEvent(c.id, c.gdDate, TnpEvent.EventType.GD, creator));
+                    }
+                    events.add(new TnpEvent(c.id, c.interviewDate, TnpEvent.EventType.Interview, creator));
                 }
                 break;
             case KEY_APPLICATIONS:
@@ -163,5 +174,15 @@ public class DummyData {
 
     public static String[] getResumes() {
         return new String[]{"Analytics", "Finance", "Core_Technical", "Consultation", "Management"};
+    }
+
+    public static List<TnpEvent> getEventsOn(Date date) {
+        List<TnpEvent> dateEvents = new ArrayList<TnpEvent>();
+        for(TnpEvent ev : events) {
+            if(TnpEvent.sameDate(date, ev.date)) {
+                dateEvents.add(ev);
+            }
+        }
+        return dateEvents;
     }
 }

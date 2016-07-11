@@ -29,7 +29,11 @@ public class JNFActivity extends AppCompatActivity {
         company = DummyData.getCompanyFromID(compID);
         String locations = Arrays.toString(company.locations);
         String[] data = new String[] {locations.substring(1, locations.length() - 1),
-        company.type.toString(), Float.toString(company.cgpa), Integer.toString(company.ctc), company.deadline.toString()};
+        company.type.toString(), Float.toString(company.cgpa), Integer.toString(company.ctc),
+                "Application Deadline: " + company.deadline.toString(),
+                "PPT: " + company.pptDate.toString(), "Test: " + company.testDate.toString(),
+                "GD: " + (company.gdDate != null ? company.gdDate.toString() : "No GD"),
+                "Interview: " + company.interviewDate.toString()};
         ListView jnf = (ListView) findViewById(R.id.listViewJNF);
         ArrayAdapter<String> adap = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1);
         adap.addAll(data);

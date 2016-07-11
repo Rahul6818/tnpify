@@ -90,10 +90,9 @@ public class NavigationActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_notification) {
-            // Handle the camera action
-            Intent notify_intent = new Intent(NavigationActivity.this,notifications.class);
-            NavigationActivity.this.startActivity(notify_intent);
-            finish();
+//            Intent notify_intent = new Intent(NavigationActivity.this,notifications.class);
+//            NavigationActivity.this.startActivity(notify_intent);
+//            finish();
         } else if (id == R.id.nav_apply) {
             Intent apply_intent = new Intent(NavigationActivity.this,ApplyActivity.class);
             NavigationActivity.this.startActivity(apply_intent);

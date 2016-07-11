@@ -3,6 +3,7 @@ package tnpify.tnp_login;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -42,6 +43,7 @@ public class Company implements Comparable<Company>{
     public String applied = null;
     public int ctc; //Cost to company
     public float cgpa; //minimum CGPA
+    public Date pptDate, testDate, gdDate, interviewDate;
     public Date deadline; //Application deadline.
 
 
@@ -60,6 +62,29 @@ public class Company implements Comparable<Company>{
                 deadline.setMonth(deadline.getMonth() + 6);
             }
             deadline.setYear(116); // Sets year since 1900
+
+            pptDate = new Date();
+            pptDate.setTime(deadline.getTime() - ((Math.abs(r.nextLong())) % ONE_MONTH_TIME));
+
+            testDate = new Date();
+            testDate.setTime(deadline.getTime() + ((Math.abs(r.nextLong())) % ONE_MONTH_TIME));
+
+            if(r.nextInt(2) == 1) {
+                gdDate = null;
+            } else {
+                gdDate = new Date();
+                gdDate.setTime(testDate.getTime() + ((Math.abs(r.nextLong())) % (ONE_MONTH_TIME / 2)));
+            }
+
+            interviewDate = new Date();
+            if(gdDate == null) {
+                interviewDate.setTime(testDate.getTime() + ((Math.abs(r.nextLong())) % ONE_MONTH_TIME));
+            } else {
+                interviewDate.setTime(gdDate.getTime() + ((Math.abs(r.nextLong())) % (ONE_MONTH_TIME / 2)));
+            }
+            if(interviewDate.getYear() == 116) {
+                interviewDate.setMonth(Calendar.DECEMBER);
+            }
         }
     }
 

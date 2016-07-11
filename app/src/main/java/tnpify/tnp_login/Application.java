@@ -42,7 +42,15 @@ public class Application implements Comparable<Application>{
         resumeType = DummyData.getCompanyFromID(compID).type.toString();
         appID = lastAppID + 1;
         lastAppID++;
-        status = ApplicationStatus.values()[r.nextInt(ApplicationStatus.values().length)];
+        Company c = DummyData.getCompanyFromID(compID);
+        long today = System.currentTimeMillis();
+        status = ApplicationStatus.Applied;
+        if(c.interviewDate.getTime() < today) {
+            status = new ApplicationStatus[]{ApplicationStatus.NotSelected, ApplicationStatus.NotShortlisted, ApplicationStatus.Selected}[r.nextInt(3)];
+        } else if(c.testDate.getTime() < today) {
+            status = new ApplicationStatus[]{ApplicationStatus.Shortlisted, ApplicationStatus.NotShortlisted}[r.nextInt(2)];
+        }
+
     }
     public Application(String username, int compID, String resumeType) {
         this.compID = compID;

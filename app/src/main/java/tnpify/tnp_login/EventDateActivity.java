@@ -11,6 +11,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 public class EventDateActivity extends AppCompatActivity {
@@ -33,15 +34,15 @@ public class EventDateActivity extends AppCompatActivity {
             return null;
         }
     }
-    public ArrayList<TnpEvent> getEvents() {
-        ArrayList<TnpEvent> list = new ArrayList<>(5);
-        Random r = new Random();
-        list.add(TnpEvent.randomEventGen(0, date, r));
-        list.add(TnpEvent.randomEventGen(1, date, r));
-        list.add(TnpEvent.randomEventGen(2, date, r));
-        list.add(TnpEvent.randomEventGen(3, date, r));
-        list.add(TnpEvent.randomEventGen(4, date, r));
-
+    public List<TnpEvent> getEvents() {
+//        ArrayList<TnpEvent> list = new ArrayList<>(5);
+//        Random r = new Random();
+//        list.add(new TnpEvent(date, r));
+//        list.add(new TnpEvent(date, r));
+//        list.add(new TnpEvent(date, r));
+//        list.add(new TnpEvent(date, r));
+//        list.add(new TnpEvent(date, r));
+        List<TnpEvent> list = DummyData.getEventsOn(date);
         return list;
     }
 }
