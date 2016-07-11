@@ -26,14 +26,15 @@ public class SelectResume extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_resume);
-        int compID = getIntent().getIntExtra(SELECT_RESUME_FOR_COMPANY, -1);
+        long compID = getIntent().getLongExtra(SELECT_RESUME_FOR_COMPANY, -1);
         company = DummyData.getCompanyFromID(compID);
-        TextView title = (TextView) findViewById(R.id.textView);
-        title.setText(company != null ? company.name : "Invalid Company");
+//        TextView title = (TextView) findViewById(R.id.textView);
+//        title.setText(company != null ? company.name : "Invalid Company");
         resumeSelector = (Spinner) findViewById(R.id.spinner_resume);
         ArrayAdapter<String> adapter = new SpinnerArrayAdapter<String>(this, android.R.layout.simple_spinner_item, android.R.id.text1, resumes);
         resumeSelector.setAdapter(adapter);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(company != null ? company.name : "Invalid Company");
     }
 
     @Override

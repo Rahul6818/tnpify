@@ -34,7 +34,7 @@ public class ApplyActivity extends NavigationActivity {
                 } else {
 
                     Intent jnfIntent = new Intent(ApplyActivity.this, JNFActivity.class);
-                    int compID = selection.id;
+                    long compID = selection.id;
                     String compName = selection.name;
                     jnfIntent.putExtra(getResources().getString(R.string.company_id), compID);
                     jnfIntent.putExtra(getResources().getString(R.string.company_name), compName);
@@ -50,7 +50,7 @@ public class ApplyActivity extends NavigationActivity {
                     Toast.makeText(getApplicationContext(), "Please select a company first", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                int compID = selection.id;
+                long compID = selection.id;
                 JNFActivity.applyToCompany(ApplyActivity.this, compID);
             }
         });
@@ -74,7 +74,7 @@ public class ApplyActivity extends NavigationActivity {
             applyList.notifyDataSetInvalidated();
         }
         List<Company> appliedList = DummyData.openCompanies();
-        appliedList.add(0, new Company(-1, "Select a Company", null, null));
+        appliedList.add(0, new Company("Select a Company", null, null));
         applyList = new SpinnerArrayAdapter<Company>(this, android.R.layout.simple_spinner_item, android.R.id.text1, appliedList);
         applyList.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         selectCompany.setAdapter(applyList);

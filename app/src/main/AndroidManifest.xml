@@ -24,10 +24,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".NavigationActivity"
+        <activity
+            android:name=".NavigationActivity"
             android:label="@string/title_activity_navigation"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".sample"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".sample"
             android:label="@string/title_activity_notifications"
             android:parentActivityName=".LoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -35,39 +37,49 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".LoginActivity" />
         </activity>
-        <activity android:name=".CompanyList"
+        <activity
+            android:name=".CompanyList"
             android:label="@string/title_activity_compList"
             android:parentActivityName=".LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ViewResume"
+        <activity
+            android:name=".ViewResume"
             android:label="@string/title_activity_resume"
             android:parentActivityName=".LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".JNFActivity"
+        <activity
+            android:name=".JNFActivity"
             android:label="@string/title_activity_jnf"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ApplyActivity"
+        <activity
+            android:name=".ApplyActivity"
             android:label="@string/title_activity_apply"
             android:parentActivityName=".LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".SelectResume" />
-        <activity android:name=".EventsActivity"
-            android:label="Events"
+        <activity
+            android:name=".EventsActivity"
+            android:label="Events Calendar"
             android:parentActivityName=".LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".EventDateActivity"
+        <activity
+            android:name=".EventDateActivity"
             android:parentActivityName=".EventsActivity" />
-        <activity android:name=".FiltersActivity"
+        <activity
+            android:name=".FiltersActivity"
             android:label="Filter"
             android:parentActivityName=".CompanyList" />
-        <activity android:name=".StatusActivity"
+        <activity
+            android:name=".StatusActivity"
             android:parentActivityName=".LoginActivity"
+            android:label="@string/status_activity_label"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="tnpify.tnp_login.LoginActivity" />
         </activity>
-        <activity android:name=".NotificationActivity"
+        <activity
+            android:name=".NotificationActivity"
             android:label="@string/title_activity_notification"
             android:parentActivityName=".LoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -75,6 +87,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="tnpify.tnp_login.LoginActivity" />
         </activity>
+
     </application>
 
 </manifest>

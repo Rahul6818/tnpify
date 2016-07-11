@@ -25,7 +25,7 @@ public class JNFActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jnf);
         Intent callerIntent = getIntent();
-        final int compID = callerIntent.getIntExtra(getResources().getString(R.string.company_id), -1);
+        final long compID = callerIntent.getLongExtra(getResources().getString(R.string.company_id), -1);
         final String compName = callerIntent.getStringExtra(getResources().getString(R.string.company_name));
         company = DummyData.getCompanyFromID(compID);
         String locations = Arrays.toString(company.locations);
@@ -40,7 +40,7 @@ public class JNFActivity extends AppCompatActivity {
         adap.addAll(data);
         jnf.setAdapter(adap);
 
-        CollapsingToolbarLayout collToolbar = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
+//        CollapsingToolbarLayout collToolbar = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_jnf);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(compName);
@@ -102,7 +102,7 @@ public class JNFActivity extends AppCompatActivity {
         }
     }
 
-    public static void applyToCompany(Activity context, int compID) {
+    public static void applyToCompany(Activity context, long compID) {
         Intent intent = new Intent(context, SelectResume.class);
         intent.putExtra(SelectResume.SELECT_RESUME_FOR_COMPANY, compID);
         context.startActivityForResult(intent, SelectResume.RESULT_REQUEST_CODE);

@@ -33,10 +33,10 @@ public class Application implements Comparable<Application>{
     private static long lastAppID = -1;
     long appID;
     String username;
-    int compID;
+    long compID;
     String resumeType;
     ApplicationStatus status;
-    public Application(Random r, String username, int compID) {
+    public Application(Random r, String username, long compID) {
         this.compID = compID;
         this.username = username;
         resumeType = DummyData.getCompanyFromID(compID).type.toString();
@@ -52,7 +52,7 @@ public class Application implements Comparable<Application>{
         }
 
     }
-    public Application(String username, int compID, String resumeType) {
+    public Application(String username, long compID, String resumeType) {
         this.compID = compID;
         this.username = username;
         this.resumeType = resumeType;

@@ -13,7 +13,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -40,6 +42,9 @@ public class NavigationActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
         NavigationView navigationView = (NavigationView) drawer.findViewById(R.id.nav_view);
+        View header = navigationView.getHeaderView(0);
+        TextView drawerUsernameView = (TextView) header.findViewById(R.id.username_text_view);
+        drawerUsernameView.setText(LoginActivity.getUsername(this));
         navigationView.setNavigationItemSelectedListener(this);
         super.setContentView(drawer);
     }

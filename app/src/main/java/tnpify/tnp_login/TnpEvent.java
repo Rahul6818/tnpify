@@ -13,7 +13,7 @@ public class TnpEvent implements Comparable<TnpEvent>{
     public static long lastID = -1;
     public long id;
     public EventType type;
-    public int companyID;
+    public long companyID;
     public Date date;
 //    public Time time;
     public String venue;
@@ -39,7 +39,7 @@ public class TnpEvent implements Comparable<TnpEvent>{
         PPT, Test, GD, Interview;
     }
 
-    public TnpEvent(int companyID, Date date, EventType type, Random r) {
+    public TnpEvent(long companyID, Date date, EventType type, Random r) {
         id = lastID + 1;
         lastID++;
         this.companyID = companyID;

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -28,8 +29,10 @@ public class DummyData {
     private static final List<Company> appliedCompanies = new ArrayList<Company>();
     private static final List<Application> applications = new ArrayList<Application>();
     private static final List<TnpEvent> events = new ArrayList<TnpEvent>();
+    private static final String[] locations = new String[]{"Ahmedabad", "Agra", "Bangalore", "Bombay", "Delhi", "Gurgaon", "Jaipur", "Hyderabad", "Chennai", "Noida"};
+    private static final String[] names = new String[]{"Pellentesque Limited", "Nonummy PC", "Tempor Bibendum Donec LLP", "Lobortis Risus LLC", "Mollis Vitae LLC", "Mauris Sapien Inc.", "Mollis Consulting", "Ante Maecenas LLP", "Aliquam Rutrum Foundation", "A Auctor Foundation", "Proin Vel Industries", "Elit Consulting", "Lobortis Tellus Institute", "Diam Duis Mi Associates", "Proin Dolor Nulla Limited", "Non Lacinia PC", "Pharetra Consulting", "Dapibus Gravida Ltd", "Nec Diam Duis Corporation", "Vitae Limited", "Natoque Penatibus LLC", "Id Risus Company", "Orci Donec Nibh Industries", "Ac Urna Ut LLC", "Aliquam Arcu Associates", "Elit Elit Company", "Diam Duis Mi PC", "Ornare Lectus Corp.", "Ad Litora LLC", "Est Nunc Laoreet Institute", "Penatibus LLC", "Ultrices Posuere Cubilia Corporation", "Vivamus Nisi Mauris Industries", "Vestibulum LLC", "Lorem Ipsum Foundation", "Nulla Associates", "Sociis Natoque Penatibus LLC", "Aliquet Nec LLP", "Mauris Eu Turpis Company", "Interdum LLP", "Amet PC", "Posuere Cubilia Curae; Limited", "Amet Consectetuer Adipiscing PC", "Vehicula Pellentesque Industries", "Vestibulum Accumsan Industries", "Donec Associates", "Duis Consulting", "Aliquam Consulting", "Vitae Diam Company", "Semper Inc.", "Nisi Foundation", "Nec Ante Blandit Corp.", "Duis Corporation", "Eu Euismod Institute", "Ornare Lectus Corporation", "Sed Dictum Eleifend Associates", "Vulputate Corporation", "Nunc Risus Foundation", "Gravida Molestie Associates", "Eu Eleifend Nec Inc.", "Ultricies Adipiscing Inc.", "In Magna Phasellus LLP", "Nisi Aenean Eget Company", "Rutrum Magna Foundation", "Enim Corp.", "Eu Enim Etiam Ltd", "Massa Corporation", "Non Cursus Associates", "Quam Incorporated", "Aliquet Incorporated", "Nec Ante Blandit Corporation", "Felis Nulla Consulting", "Tristique PC", "Mollis Duis Sit LLP", "Placerat Velit Quisque Inc.", "Netus PC", "Suspendisse Eleifend Ltd", "Enim Etiam Imperdiet Corp.", "In Condimentum Donec Corp.", "Justo Proin Industries", "Magna Ut Tincidunt Corporation", "Quam Corp.", "Consectetuer Euismod Corp.", "Sem Magna Limited", "Nunc Ullamcorper Incorporated", "In Corporation", "Porta Elit A Company", "Est LLC", "Vulputate Associates", "At Ltd", "Dolor Incorporated", "Egestas Institute", "Magnis Dis LLC", "Erat Inc.", "Nisi Foundation", "Elit Associates", "Integer Urna Vivamus Incorporated", "Scelerisque Corp.", "Sapien Aenean Massa Institute"};
 
-    public static Company getCompanyFromID(int id) {
+    public static Company getCompanyFromID(long id) {
         for(Company c : getAllCompanies()) {
             if(c.id == id)
                 return c;
@@ -37,7 +40,7 @@ public class DummyData {
         return null;
     }
 
-    public static ArrayList<Company> getCompaniesFromIDs(int[] IDs) {
+    public static ArrayList<Company> getCompaniesFromIDs(long[] IDs) {
         ArrayList<Company> compList = new ArrayList<Company>(IDs.length);
         for(int i = 0; i < IDs.length; i++) {
             Company c = getCompanyFromID(IDs[i]);
@@ -50,6 +53,16 @@ public class DummyData {
     public static List<Company> getAllCompanies() {
         createDummyData(KEY_COMPANIES);
         return origList;
+    }
+
+    private static String[] getLocations(Random r) {
+        List<String> locs = new LinkedList<>(Arrays.asList(locations));
+        int len = r.nextInt(locs.size());
+        String[] ret = new String[len];
+        for(int i = 0; i < len; i++) {
+            ret[i] = locs.remove(r.nextInt(locs.size()));
+        }
+        return ret;
     }
 
     public static void createDummyData(int key) {
@@ -65,7 +78,7 @@ public class DummyData {
             case KEY_COMPANIES:
                 Company c;
                 for (int i = 0; i < 99; ++i) {
-                    c = new Company(i, (i < 10 ? "company0" : "company") + i, new String[]{"loc" + (2 * i), "loc" + (2 * i + 1)}, creator);
+                    c = new Company(names[i], getLocations(creator), creator);
                     origList.add(c);
                     events.add(new TnpEvent(c.id, c.pptDate, TnpEvent.EventType.PPT, creator));
                     events.add(new TnpEvent(c.id, c.testDate, TnpEvent.EventType.Test, creator));

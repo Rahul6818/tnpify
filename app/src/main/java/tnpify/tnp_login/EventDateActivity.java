@@ -26,7 +26,9 @@ public class EventDateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_date);
         elv = (ListView) findViewById(R.id.eventsListView);
-        date = parseDate(getIntent().getStringExtra("date"));
+        String inputDate = getIntent().getStringExtra("date");
+        date = parseDate(inputDate);
+        getSupportActionBar().setTitle(inputDate);
         Toast.makeText(this, date.toString(), Toast.LENGTH_SHORT).show();
         ArrayAdapter<TnpEvent> adap = new ArrayAdapter<TnpEvent>(this, android.R.layout.simple_list_item_1, getEvents()) {
             @Override

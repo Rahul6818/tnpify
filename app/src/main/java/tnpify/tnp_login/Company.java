@@ -31,12 +31,13 @@ public class Company implements Comparable<Company>{
             return false;
         }
     }
+    private static long lastID = -1;
     public static final int NAME_SORT = 0;
     public static final int CTC_SORT = 1;
     public static final int CGPA_SORT = 2;
     public static final int DEADLINE_SORT = 3;
     static final long ONE_MONTH_TIME = 2419200000L;
-    public int id;
+    public long id;
     public String name;
     public CompanyType type;
     public String[] locations;
@@ -47,8 +48,9 @@ public class Company implements Comparable<Company>{
     public Date deadline; //Application deadline.
 
 
-    public Company(int id, String name, String[] locations, Random r) {
-        this.id = id;
+    public Company(String name, String[] locations, Random r) {
+        id = lastID +1;
+        lastID++;
         this.name = name;
         this.locations = locations;
         applied = null;

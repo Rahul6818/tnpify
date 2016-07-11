@@ -62,7 +62,7 @@ public class CompanyList extends NavigationActivity {
 //                     }
 //                });
                 Intent jnfIntent = new Intent(CompanyList.this, JNFActivity.class);
-                int compID = ((Company) parent.getItemAtPosition(position)).id;
+                long compID = ((Company) parent.getItemAtPosition(position)).id;
                 String compName = ((Company) parent.getItemAtPosition(position)).name;
                 jnfIntent.putExtra(getResources().getString(R.string.company_id), compID);
                 jnfIntent.putExtra(getResources().getString(R.string.company_name), compName);
