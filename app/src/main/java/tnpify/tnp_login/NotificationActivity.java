@@ -113,7 +113,7 @@ public class NotificationActivity extends NavigationActivity {
             int sectionNumber = getArguments().getInt(ARG_SECTION_NUMBER);
             List<TnpEvent> data;
             data = sectionNumber == 1 ? DummyData.upcomingEvents() : DummyData.upcomingPersonalEvents();
-            ArrayAdapter<TnpEvent> adap = new ArrayAdapter<TnpEvent>(inflater.getContext(), android.R.layout.simple_list_item_1, data);
+            ArrayAdapter<TnpEvent> adap = new ArrayAdapter<TnpEvent>(getContext(), android.R.layout.simple_list_item_1, data);
             listView.setAdapter(adap);
 //            listView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             return rootView;

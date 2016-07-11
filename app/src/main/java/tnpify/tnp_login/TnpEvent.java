@@ -88,8 +88,4 @@ public class TnpEvent implements Comparable<TnpEvent>{
     public String toString() {
         return "company" + companyID + "\n" + type.toString() + "\n" + date.toString() + "\n" + venue;
     }
-
-    public static boolean sameDate(Date date1, Date date2) {
-        return date1.getYear() == date2.getYear() && date1.getMonth() == date2.getMonth() && date1.getDate() == date2.getDate();
-    }
 }

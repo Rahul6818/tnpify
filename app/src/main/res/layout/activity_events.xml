@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context="tnpify.tnp_login.EventsActivity">
 
-    <CalendarView
+    <tnpify.tnp_login.CalendarView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/eventsCalendarView" />

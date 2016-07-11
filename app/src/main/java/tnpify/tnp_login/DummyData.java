@@ -1,5 +1,7 @@
 package tnpify.tnp_login;
 
+import android.widget.*;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -180,7 +182,7 @@ public class DummyData {
     public static List<TnpEvent> getEventsOn(Date date) {
         List<TnpEvent> dateEvents = new ArrayList<TnpEvent>();
         for(TnpEvent ev : events) {
-            if(TnpEvent.sameDate(date, ev.date)) {
+            if(CalendarView.sameDate(date, ev.date)) {
                 dateEvents.add(ev);
             }
         }
@@ -203,11 +205,23 @@ public class DummyData {
         List<TnpEvent> upcomingPersonalEvents = new ArrayList<TnpEvent>();
         long today = System.currentTimeMillis();
         for(TnpEvent ev : events) {
-            if(ev.date.getTime() > today && ev.date.getTime() < today + (Company.ONE_MONTH_TIME / 4L) && getCompanyFromID(ev.companyID).isApplied(username)) {
+            if(ev.date.getTime() > today && ev.date.getTime() < today + (Company.ONE_MONTH_TIME / 4L) &&
+                    getCompanyFromID(ev.companyID).isApplied(username)) {
                 upcomingPersonalEvents.add(ev);
             }
         }
         Collections.sort(upcomingPersonalEvents);
         return upcomingPersonalEvents;
+    }
+
+    public static List<TnpEvent> getPersonalEventsBetween(Date date1, Date date2) {
+        List<TnpEvent> ret = new ArrayList<>();
+        for(TnpEvent ev : events) {
+            if(ev.date.getTime() >= date1.getTime() && ev.date.getTime() < date2.getTime() &&
+                    getCompanyFromID(ev.companyID).isApplied(username)) {
+                ret.add(ev);
+            }
+        }
+        return ret;
     }
 }
