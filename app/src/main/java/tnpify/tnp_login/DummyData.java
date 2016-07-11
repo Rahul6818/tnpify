@@ -2,6 +2,7 @@ package tnpify.tnp_login;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -184,5 +185,29 @@ public class DummyData {
             }
         }
         return dateEvents;
+    }
+
+    public static List<TnpEvent> upcomingEvents() {
+        List<TnpEvent> upcomingEvents = new ArrayList<TnpEvent>();
+        long today = System.currentTimeMillis();
+        for(TnpEvent ev : events) {
+            if(ev.date.getTime() > today && ev.date.getTime() < today + (Company.ONE_MONTH_TIME / 4L)) {
+                upcomingEvents.add(ev);
+            }
+        }
+        Collections.sort(upcomingEvents);
+        return upcomingEvents;
+    }
+
+    public static List<TnpEvent> upcomingPersonalEvents() {
+        List<TnpEvent> upcomingPersonalEvents = new ArrayList<TnpEvent>();
+        long today = System.currentTimeMillis();
+        for(TnpEvent ev : events) {
+            if(ev.date.getTime() > today && ev.date.getTime() < today + (Company.ONE_MONTH_TIME / 4L) && getCompanyFromID(ev.companyID).isApplied(username)) {
+                upcomingPersonalEvents.add(ev);
+            }
+        }
+        Collections.sort(upcomingPersonalEvents);
+        return upcomingPersonalEvents;
     }
 }

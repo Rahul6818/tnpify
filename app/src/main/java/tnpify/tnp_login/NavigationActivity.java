@@ -33,7 +33,7 @@ public class NavigationActivity extends AppCompatActivity
         RelativeLayout activityContent = (RelativeLayout) drawer.findViewById(R.id.content);
         getLayoutInflater().inflate(layoutResID, activityContent, true);
 
-        Toolbar toolbar = (Toolbar) drawer.findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) drawer.findViewById(R.id.toolbar_navigation);
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -90,9 +90,9 @@ public class NavigationActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_notification) {
-//            Intent notify_intent = new Intent(NavigationActivity.this,notifications.class);
-//            NavigationActivity.this.startActivity(notify_intent);
-//            finish();
+            Intent notify_intent = new Intent(NavigationActivity.this,NotificationActivity.class);
+            NavigationActivity.this.startActivity(notify_intent);
+            finish();
         } else if (id == R.id.nav_apply) {
             Intent apply_intent = new Intent(NavigationActivity.this,ApplyActivity.class);
             NavigationActivity.this.startActivity(apply_intent);

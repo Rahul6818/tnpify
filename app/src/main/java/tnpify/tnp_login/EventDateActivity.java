@@ -3,6 +3,7 @@ package tnpify.tnp_login;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -26,7 +27,18 @@ public class EventDateActivity extends AppCompatActivity {
         Toast.makeText(this, date.toString(), Toast.LENGTH_SHORT).show();
         ArrayAdapter<TnpEvent> adap = new ArrayAdapter<TnpEvent>(this, android.R.layout.simple_list_item_1, getEvents());
         elv.setAdapter(adap);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     public static Date parseDate(String date) {
         try {
             return new SimpleDateFormat("yyyy-MM-dd").parse(date);
@@ -34,14 +46,8 @@ public class EventDateActivity extends AppCompatActivity {
             return null;
         }
     }
+
     public List<TnpEvent> getEvents() {
-//        ArrayList<TnpEvent> list = new ArrayList<>(5);
-//        Random r = new Random();
-//        list.add(new TnpEvent(date, r));
-//        list.add(new TnpEvent(date, r));
-//        list.add(new TnpEvent(date, r));
-//        list.add(new TnpEvent(date, r));
-//        list.add(new TnpEvent(date, r));
         List<TnpEvent> list = DummyData.getEventsOn(date);
         return list;
     }

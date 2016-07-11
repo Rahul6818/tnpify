@@ -1,12 +1,15 @@
 package tnpify.tnp_login;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 /**
  * Created by Tushar on 7/7/2016.
  */
-public class TnpEvent {
+public class TnpEvent implements Comparable<TnpEvent>{
     public static long lastID = -1;
     public long id;
     public EventType type;
@@ -14,6 +17,23 @@ public class TnpEvent {
     public Date date;
 //    public Time time;
     public String venue;
+
+    /**
+     * Compares this object to the specified object to determine their relative
+     * order.
+     *
+     * @param another the object to compare to this instance.
+     * @return a negative integer if this instance is less than {@code another};
+     * a positive integer if this instance is greater than
+     * {@code another}; 0 if this instance has the same order as
+     * {@code another}.
+     * @throws ClassCastException if {@code another} cannot be converted into something
+     *                            comparable to {@code this} instance.
+     */
+    @Override
+    public int compareTo(TnpEvent another) {
+        return date.compareTo(another.date);
+    }
 
     public static enum EventType {
         PPT, Test, GD, Interview;

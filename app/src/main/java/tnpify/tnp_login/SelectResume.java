@@ -3,6 +3,7 @@ package tnpify.tnp_login;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -32,6 +33,17 @@ public class SelectResume extends AppCompatActivity {
         resumeSelector = (Spinner) findViewById(R.id.spinner_resume);
         ArrayAdapter<String> adapter = new SpinnerArrayAdapter<String>(this, android.R.layout.simple_spinner_item, android.R.id.text1, resumes);
         resumeSelector.setAdapter(adapter);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home) {
+            setResult(RESULT_CANCELED);
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

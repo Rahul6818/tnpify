@@ -26,9 +26,8 @@
         </activity>
         <activity android:name=".NavigationActivity"
             android:label="@string/title_activity_navigation"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity android:name=".notifications"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".sample"
             android:label="@string/title_activity_notifications"
             android:parentActivityName=".LoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -38,8 +37,8 @@
         </activity>
         <activity android:name=".CompanyList"
             android:label="@string/title_activity_compList"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".LoginActivity" />
+            android:parentActivityName=".LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ViewResume"
             android:label="@string/title_activity_resume"
             android:parentActivityName=".LoginActivity"
@@ -63,7 +62,15 @@
             android:parentActivityName=".CompanyList" />
         <activity android:name=".StatusActivity"
             android:parentActivityName=".LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="tnpify.tnp_login.LoginActivity" />
+        </activity>
+        <activity android:name=".NotificationActivity"
+            android:label="@string/title_activity_notification"
+            android:parentActivityName=".LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="tnpify.tnp_login.LoginActivity" />

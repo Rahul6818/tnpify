@@ -4,17 +4,9 @@
     <item android:title="@string/menu_apply">
         <menu>
             <item
-                android:id="@+id/nav_notification"
-                android:icon="@drawable/ic_notification"
-                android:title="Notification" />
-            <item
                 android:id="@+id/nav_apply"
                 android:icon="@drawable/ic_apply"
                 android:title="Apply for job/intern" />
-            <item
-                android:id="@+id/nav_resume"
-                android:icon="@drawable/ic_resume"
-                android:title="Resume" />
             <item
                 android:id="@+id/nav_status"
                 android:icon="@drawable/ic_status"
@@ -22,17 +14,29 @@
             </menu>
     </item>
 
-    <item android:title="@string/menu_search">
+    <item android:title="@string/menu_view">
         <menu>
+            <item
+                android:id="@+id/nav_resume"
+                android:icon="@drawable/ic_resume"
+                android:title="Resume" />
             <item
                 android:id="@+id/nav_company"
                 android:icon="@drawable/ic_company"
                 android:title="Companies" />
+        </menu>
+    </item>
+    <item android:title="@string/nav_events" >
+        <menu>
+            <item
+                android:id="@+id/nav_notification"
+                android:icon="@drawable/ic_notification"
+                android:title="Upcoming Events" />
             <item
                 android:id="@+id/nav_events"
                 android:icon="@drawable/ic_events"
-                android:title="Events" />
-        </menu>
+                android:title="Events Calendar" />
+            </menu>
     </item>
     <item android:title="@string/menu_account" >
         <menu>

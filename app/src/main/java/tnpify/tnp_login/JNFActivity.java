@@ -7,6 +7,7 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -40,7 +41,7 @@ public class JNFActivity extends AppCompatActivity {
         jnf.setAdapter(adap);
 
         CollapsingToolbarLayout collToolbar = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_jnf);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(compName);
 
@@ -48,6 +49,8 @@ public class JNFActivity extends AppCompatActivity {
         fab = (FloatingActionButton) findViewById(R.id.fab_jnf);
         username = LoginActivity.getUsername(getApplicationContext());
         refreshFabView();
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     public void fabClick(View view) {
@@ -76,6 +79,15 @@ public class JNFActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         Toast.makeText(getApplicationContext(), "Application " + (resultCode == RESULT_OK ? "successful" : "failed"), Toast.LENGTH_SHORT).show();
         refreshFabView();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     void refreshFabView() {

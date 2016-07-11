@@ -93,6 +93,10 @@ public class Company implements Comparable<Company>{
         return name;
     }
 
+    public boolean isApplied(String username) {
+        return applied != null && applied.length() != 0 && applied.equalsIgnoreCase(username);
+    }
+
     public boolean isOpen(String username) {
         long today = System.currentTimeMillis();
         long lastTime = deadline.getTime();
